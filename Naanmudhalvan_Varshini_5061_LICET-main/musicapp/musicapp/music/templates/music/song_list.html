@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Song List - Music App
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <a href="{% url 'upload_song' %}" class="btn btn-success mt-4">Upload Song</a>
+        <h1 class="my-4">Song List</h1>
+        
+    
+        <div class="row">
+            {% for song in songs %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="{% if song.cover_image %}{{ song.cover_image.url }}{% else %}{% static 'images/default_cover.jpg' %}{% endif %}" class="card-img-top" alt="{% if song.cover_image %}{{ song.title }} Cover{% else %}Default Cover{% endif %}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ song.title }}</h5>
+                            <p class="card-text">by {{ song.artist }}</p>
+                            <a href="{% url 'song_detail' pk=song.pk %}" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-md-12">
+                    <p>No songs available. Upload a song now!</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        
+    </div>
+{% endblock %}

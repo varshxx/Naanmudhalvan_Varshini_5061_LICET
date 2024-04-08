@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ song.title }} - Music App
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="my-4">{{ song.title }}</h1>
+                <img src="{% if song.cover_image %}{{ song.cover_image.url }}{% else %}{% static 'images/default_cover.jpg' %}{% endif %}" class="img-fluid rounded mb-4" alt="{% if song.cover_image %}{{ song.title }} Cover{% else %}Default Cover{% endif %}">
+                <p><strong>Artist:</strong> {{ song.artist }}</p>
+                <p><strong>Album:</strong> {{ song.album }}</p>
+                <p><strong>Genre:</strong> {{ song.genre }}</p>
+                <audio controls class="mb-4">
+                    <source src="{{ song.audio_file.url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <a href="{% url 'song_list' %}" class="btn btn-secondary">Back to Song List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
